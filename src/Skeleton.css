@@ -1,0 +1,66 @@
+.skeleton-text {
+    margin-left: 8px;
+    margin-top: 0;
+    margin-bottom: -8px;
+    font-size: 1.6rem;
+    font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+    font-weight: 400;
+    line-height: 1.5;
+    letter-spacing: 0.00938em;
+}
+
+.skeleton-container {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.skeleton-card {
+    flex-grow: 0;
+    max-width: 100%;
+    flex-basis: 100%;
+    box-sizing: border-box;
+    padding: 8px;
+}
+
+.skeleton-card>div {
+    border-radius: 4px;
+    box-shadow: 0px 1px 3px 0px rgba(0, 0, 0, 0.2), 0px 1px 1px 0px rgba(0, 0, 0, 0.14), 0px 2px 1px -1px rgba(0, 0, 0, 0.12);
+}
+
+@media screen and (min-width: 600px) {
+    .skeleton-card {
+        max-width: 50%;
+        flex-basis: 50%;
+    }
+}
+
+@media screen and (min-width: 960px) {
+    .skeleton-card {
+        max-width: 33.33333333%;
+        flex-basis: 33.33333333%;
+    }
+}
+
+.skeleton-card-img {
+    height: 200px;
+    background-color: lightgray;
+    border-top-left-radius: 4px;
+    border-top-right-radius: 4px;
+}
+
+.skeleton-card-content {
+    color: lightgray;
+    padding: 16px;
+}
+
+.skeleton-card-content h2, .skeleton-card-content li {
+    background-color: lightgray;
+}
+
+.skeleton-container ul {
+    list-style-type: none;
+}
+
+.skeleton-container li {
+    margin-bottom: 4px;
+}
