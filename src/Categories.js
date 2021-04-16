@@ -42,7 +42,6 @@ export const CATEGORY_PREFIX = "tkevents-category:";
  * kategori ikke finnes.
  *
  * Tester:
- *
  *    assert.equal(parseCategory("asdfølkm"), "alle")
  *    assert.equal(parseCategory("tkevents-category:kategori"), "alle")
  *    assert.equal(parseCategory(), "alle")

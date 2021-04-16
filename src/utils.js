@@ -8,14 +8,14 @@ export function eventIsCategory(category) {
 }
 
 // Voksen
-// export function eventIsNotCategory(category) {
-//   return function (event) {
-//     if (category === "" || category === "alle") {
-//       throw new Error("No events are not 'alle'")
-//     }
-//     return event.categories.every(c => c !== category)
-//   }
-// }
+export function eventIsNotCategory(category) {
+  return function (event) {
+    if (category === "" || category === "alle") {
+      throw new Error("No events are not 'alle'")
+    }
+    return event.categories.every(c => c !== category)
+  }
+}
 
 /**
  * prettyDay(new Date()) -> "torsdag 3. oktober "

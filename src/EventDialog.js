@@ -28,7 +28,6 @@ import FormattedText from "./FormattedText.js";
 import Organizer from "./Organizer.js";
 import "./EventDialog.css";
 
-
 const styles = theme => ({
   closeButton: {
     position: "absolute",
@@ -56,7 +55,7 @@ class EventDialog extends React.Component {
     let utsolgt = "";
     let pris = event.regularPrice || "Gratis";
     let isOnline = event.mode;
-    let videolenke = event.streamingURL
+    let videolenke = event.streamingURL;
 
     if (pris !== "Gratis") {
       pris += " kroner";
@@ -93,14 +92,11 @@ class EventDialog extends React.Component {
         videolenke = event.streamingURL
       }
 
-
       if (event.eventSoldOut === true) {
         utsolgt = (
           "NB! Arrangementet er utsolgt/fullbooket"
         );
       }
-
-
 
       const days = [
         "søndag ",
@@ -138,7 +134,7 @@ class EventDialog extends React.Component {
         </DialogTitle>
 
         <DialogContent>
-          <img src={event.imageURL} alt={event.title_nb} /> <br />
+          <img src={event.images[0].urlSmall} alt={event.title_nb} /> <br />
           <Typography variant="h6">{avlyst}</Typography>
           <Typography variant="h6">{utsolgt}</Typography>
           <FormattedText text={event.desc_nb}></FormattedText>
@@ -148,7 +144,7 @@ class EventDialog extends React.Component {
               <ListItemIcon>
                 <MyLocation />
               </ListItemIcon>{" "}
-    <ListItemText>{isOnline} {event.venueObj.name} {event.venueNote}</ListItemText>
+    <ListItemText>{isOnline} {event.venue.name} {event.venueNote}</ListItemText>
             </ListItem>
             <If truthy={isOnline}>
               <ListItem>
@@ -207,7 +203,7 @@ class EventDialog extends React.Component {
                   </ListItemIcon>
                   <ListItemText>
                     {prettyDay(makeDateOfRepetition(repetition))}
-                    kl {repetition.startTime} {repetition.venueObj.name}
+                    kl {repetition.startTime} {repetition.venue.name}
                   </ListItemText>
                 </ListItem>
               ))}
@@ -219,11 +215,11 @@ class EventDialog extends React.Component {
           {event.organizers.map(Organizer)}
 
           <Typography className="tkevent-margin-top" variant="h5" component="h3">Adresse</Typography>
-          <Typography>{event.venueObj.address}</Typography>
-          <img src={event.venueObj.mapImageURL} alt="kartvisning" className="width-100-percent" />
+          <Typography>{event.venue.address}</Typography>
+          <img src={event.images[0].urlSmall} alt="kartvisning" className="width-100-percent" />
           <Typography>
             <a
-              href={"https://maps.google.com/?q=" + event.venueObj.address}
+              href={"https://maps.google.com/?q=" + event.venue.address}
               target="0"
             >
               {" "}

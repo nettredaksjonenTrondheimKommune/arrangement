@@ -98,8 +98,8 @@ class EventItem extends React.Component {
                 <Skeleton variant="rect" width={367} height={200} />
               )
             }
-            image={event.imageURL}
-            title=""
+            image={event.images[0].urlSmall}
+            alt={event.images[0].alt}
           />
 
           <CardContent>
@@ -135,7 +135,7 @@ class EventItem extends React.Component {
                 <ListItemIcon className={classes.listItemIcon}>
                   <MyLocation />
                 </ListItemIcon>{" "}
-          <ListItemText>{isOnline} {event.venueObj.name} {event.venueNote}</ListItemText>
+          <ListItemText>{isOnline} {event.venue.name} {event.venueNote}</ListItemText>
               </ListItem>
               <ListItem className={classes.nullpadding}>
                 <ListItemIcon className={classes.listItemIcon}>
