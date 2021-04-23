@@ -98,7 +98,7 @@ class EventItem extends React.Component {
                 <Skeleton variant="rect" width={367} height={200} />
               )
             }
-            image={event.images[0].urlSmall}
+            image={event.images[0].urlLarge}
             alt={event.images[0].alt}
           />
 

@@ -134,7 +134,7 @@ class EventDialog extends React.Component {
         </DialogTitle>
 
         <DialogContent>
-          <img src={event.images[0].urlSmall} alt={event.title_nb} /> <br />
+          <img className="width-100-percent" src={event.images[0].urlLarge} alt={event.title_nb} /> <br />
           <Typography variant="h6">{avlyst}</Typography>
           <Typography variant="h6">{utsolgt}</Typography>
           <FormattedText text={event.desc_nb}></FormattedText>
@@ -144,7 +144,7 @@ class EventDialog extends React.Component {
               <ListItemIcon>
                 <MyLocation />
               </ListItemIcon>{" "}
-    <ListItemText>{isOnline} {event.venue.name} {event.venueNote}</ListItemText>
+              <ListItemText>{isOnline} {event.venue.name} {event.venueNote}</ListItemText>
             </ListItem>
             <If truthy={isOnline}>
               <ListItem>
@@ -216,12 +216,9 @@ class EventDialog extends React.Component {
 
           <Typography className="tkevent-margin-top" variant="h5" component="h3">Adresse</Typography>
           <Typography>{event.venue.address}</Typography>
-          <img src={event.images[0].urlSmall} alt="kartvisning" className="width-100-percent" />
+          <img className="width-100-percent" src={event.images[0].urlLarge} alt="kartvisning" />
           <Typography>
-            <a
-              href={"https://maps.google.com/?q=" + event.venue.address}
-              target="0"
-            >
+            <a href={"https://maps.google.com/?q=" + event.venue.address} target="0">
               {" "}
               Vis stedet i navigerbart kart <Launch />{" "}
             </a>
