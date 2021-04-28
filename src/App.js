@@ -219,9 +219,11 @@ class App extends React.Component {
     })
       .then(r => r.json())
       // .then(normalizeEvents)
-      // .then(isTrondheimFolkebibliotek)
+      .then(isTrondheimFolkebibliotek)
+      .then(isTrondheimFolkebibliotekForside)
+      // .then(isTrondheimFolkebibliotekKonserterOgForestillinger)
       // .then(isVoksen)
-      .then(isSpaserstokken)
+      // .then(isSpaserstokken)
       .then(r => this.setState({ events: r, loading: false }))
       .catch(e => console.error(e));
   }
@@ -366,8 +368,27 @@ function isTrondheimFolkebibliotek(arrangement) {
   });
 }
 
+function isTrondheimFolkebibliotekForside(arrangement) {
+  let kommendeArrangement = arrangement.filter(a => a.isFeaturedEvent === true);
+  
+  let treKommendeArrangement = [];
+  if(kommendeArrangement.length > 3) {
+    for (var i = 0; i < 3; i++) {
+      treKommendeArrangement.push(kommendeArrangement[i]);
+    }
+  } else {
+    treKommendeArrangement = kommendeArrangement;
+  }
+
+  return treKommendeArrangement;
+}
+
+function isTrondheimFolkebibliotekKonserterOgForestillinger(arrangement) {
+  return arrangement.filter(a => eventIsCategory("CONCERT")(a) || eventIsCategory("PERFORMANCE")(a));
+}
+
 function isVoksen(arrangement) {
-  return arrangement.data.events.data.filter(a => eventIsNotCategory("FAMILY")(a) && eventIsNotCategory("SENIOR")(a))
+  return arrangement.data.events.data.filter(a => eventIsNotCategory("FAMILY")(a) && eventIsNotCategory("SENIOR")(a));
 }
 
 function isSpaserstokken(arrangement) {

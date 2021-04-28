@@ -3,7 +3,7 @@ export function eventIsCategory(category) {
     if (category === "" || category === "alle") {
       return true;
     }
-    return event.categories.includes(category)
+    return event.categories.includes(category);
   }
 }
 
@@ -11,9 +11,9 @@ export function eventIsCategory(category) {
 export function eventIsNotCategory(category) {
   return function (event) {
     if (category === "" || category === "alle") {
-      throw new Error("No events are not 'alle'")
+      throw new Error("No events are not 'alle'");
     }
-    return event.categories.every(c => c !== category)
+    return event.categories.every(c => c !== category);
   }
 }
 
