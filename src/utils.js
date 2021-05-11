@@ -59,6 +59,7 @@ export function makeDateOfRepetition(repetition) {
     minutes,
   );
 }
+
 export function afterDate(date) {
   return function (event) {
     let eventDate = new Date(event.startDate);

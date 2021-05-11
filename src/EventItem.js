@@ -60,7 +60,7 @@ class EventItem extends React.Component {
       if (start.getDate() !== end.getDate()) {
         prettyEnd = days[end.getDay()] + prettyEnd;
       }
-      prettyEnd = " - " + prettyEnd;
+      prettyEnd = "-" + prettyEnd;
     }
 
     const { classes } = this.props;
@@ -118,7 +118,7 @@ class EventItem extends React.Component {
                 </ListItemIcon>{" "}
                 <ListItemText>
                   {" "}
-                  {prettyStart} kl {event.startTime} {prettyEnd}
+                  {prettyStart} kl. {event.startTime}{prettyEnd}
                 </ListItemText>
               </ListItem>
               <If truthy={event.repetitions.length >= 1}>

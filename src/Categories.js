@@ -62,7 +62,6 @@ export function parseCategory(locationHash) {
   let category = hash.substr(CATEGORY_PREFIX.length);
 
   if (category in categories) {
-    console.log(category)
     return category;
   } else {
     return "alle";
