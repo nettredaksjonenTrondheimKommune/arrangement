@@ -23,7 +23,7 @@ import { categories } from "./Categories.js";
 import EventDialog from "./EventDialog.js";
 import { Skeleton } from "@material-ui/lab";
 import If from "./If";
-import { prettyDay } from "./utils.js";
+import { prettyDay, eventDateToDateObject } from "./utils.js";
 
 class EventItem extends React.Component {
   state = {
@@ -32,9 +32,9 @@ class EventItem extends React.Component {
 
   render() {
     const event = this.props.event;
-    const start = new Date(event.startDate);
+    const start = eventDateToDateObject(event.startDate);
     let prettyStart = prettyDay(start);
-    const end = new Date(event.endDate);
+    const end = eventDateToDateObject(event.endDate);
     let prettyEnd = "";
     let isSoldOut = event.eventSoldOut === true;
     let isCancelled = event.eventCancelled === true;

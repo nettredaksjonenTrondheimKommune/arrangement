@@ -1,3 +1,5 @@
+import moment from 'moment';
+
 export function eventIsCategory(category) {
   return function (event) {
     if (category === "" || category === "alle") {
@@ -49,7 +51,7 @@ export function prettyDay(date) {
  * @param {object} repetition
  */
 export function makeDateOfRepetition(repetition) {
-  const day = new Date(repetition.startDateRep);
+  const day = eventDateToDateObject(repetition.startDate);
   const [hour, minutes] = repetition.startTime.split(":");
   return new Date(
     day.getFullYear(),
@@ -60,10 +62,24 @@ export function makeDateOfRepetition(repetition) {
   );
 }
 
-export function afterDate(date) {
+//This function filters events with endDate after "fromDate"
+export function afterDate(fromDate) {
   return function (event) {
-    let eventDate = new Date(event.startDate);
+    //If there is not "fromDate", we can assume that it is "now"
+    const filterDate = fromDate || new Date();
 
-    return eventDate > date;
+    //event.endDate format: 2021-05-15 08:30:00+00
+    const eventDate = eventDateToDateObject(event.endDate);
+
+    return eventDate > filterDate;
+  }
+}
+
+export function eventDateToDateObject(dateStr) {
+  const parsedDate = moment(dateStr, "YYYY-MM-DD HH:mm:ssZ");
+  if (parsedDate.isValid()) {
+    return parsedDate.toDate();
+  } else {
+    throw new Error("dateStr is not a valid formatted date");
   }
 }

@@ -23,7 +23,7 @@ import {
 } from "@material-ui/icons";
 import { categories } from "./Categories.js";
 import If from "./If";
-import { prettyDay, makeDateOfRepetition } from "./utils.js";
+import { prettyDay, makeDateOfRepetition, eventDateToDateObject } from "./utils.js";
 import FormattedText from "./FormattedText.js";
 import Organizer from "./Organizer.js";
 import "./EventDialog.css";
@@ -43,12 +43,12 @@ class EventDialog extends React.Component {
     const { open } = this.props;
     const { lukk } = this.props;
     const { event } = this.props;
-    const start = new Date(event.startDate);
+    const start = eventDateToDateObject(event.startDate);
     let isSoldOut = event.eventSoldOut !== "";
     let isCancelled = event.eventCancelled !== "";
     
     const prettyStart = prettyDay(start);
-    const end = new Date(event.endDate);
+    const end = eventDateToDateObject(event.endDate);
     let booking = "";
     let prettyEnd = "";
     let avlyst = "";
