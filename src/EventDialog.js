@@ -44,8 +44,8 @@ class EventDialog extends React.Component {
     const { lukk } = this.props;
     const { event } = this.props;
     const start = eventDateToDateObject(event.startDate);
-    let isSoldOut = event.eventSoldOut !== "";
-    let isCancelled = event.eventCancelled !== "";
+    let isSoldOut = event.eventSoldOut;
+    let isCancelled = event.eventCancelled;
     
     const prettyStart = prettyDay(start);
     const end = eventDateToDateObject(event.endDate);
