@@ -19,7 +19,6 @@ import {
   MuiPickersUtilsProvider, DatePicker
 } from '@material-ui/pickers';
 import { debounce } from "debounce";
-// import { normalizeEvents } from "./Normalize";
 import { parseCategory } from "./Categories";
 
 const theme = createMuiTheme({
@@ -60,7 +59,7 @@ const formattedFilter = {
   // Voksen
   // notCategories: ["FAMILY", "SENIOR"]
   // DenKulturelleSpaserstokken
-  // categories: ["SENIOR"]
+  categories: ["SENIOR"]
 };
 const page = 0;
 const pageSize = 1000;
@@ -206,14 +205,11 @@ class App extends React.Component {
   async getData() {
     await fetch(url, opts)
       .then(res => res.json())
-      // // TrondheimFolkebibliotek
-      .then(isTrondheimFolkebibliotek)
-      .then(res => this.setState({ events: res, loading: false }))
-      // // .then(res => {
-      // //   console.log("Events array", this.state.events)
-      // // })
-      // // DenKulturelleSpaserstokken
-      // //.then(res => this.setState({ events: res.data.events.data, loading: false }))
+      // TrondheimFolkebibliotek
+      // .then(isTrondheimFolkebibliotek)
+      // .then(res => this.setState({ events: res, loading: false }))
+      // DenKulturelleSpaserstokken
+      .then(res => this.setState({ events: res.data.events.data, loading: false }))
       .catch(err => console.error(err));
   }
 
@@ -324,8 +320,8 @@ class App extends React.Component {
                 </Grid>
               ))}
             </Grid>
-            {/* Utvalgt kommenter vekk under */}
 
+            {/* Utvalgt kommenter vekk under */}
             {numberOfResults > this.state.max && (
               <div className={classes.visFlere}>
                 <Button
@@ -339,7 +335,6 @@ class App extends React.Component {
             )}
             {/* Utvalgt kommenter vekk over */}
           </div>
-
         </If>
       </ThemeProvider>
     );
