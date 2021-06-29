@@ -96,8 +96,6 @@ const eventFields =
   eventLink
   facebookURL
   id
-  imageURL
-  image2xURL
   images {
     alt
     caption
@@ -122,7 +120,6 @@ const eventFields =
     telephoneNumber
     website
   }
-  parent_event
   priceOption
   publishingDate
   reducedPrice
