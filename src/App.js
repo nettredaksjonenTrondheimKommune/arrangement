@@ -184,12 +184,11 @@ const opts = {
   body: JSON.stringify({ query })
 }
 
-// Utvalgt: Endre max til 3, Skal normalt være 20
-
 class App extends React.Component {
   state = {
     events: [],
     loading: true,
+    // Utvalgt: Endre max til 3, skal normalt være 20
     max: 20,
     category: parseCategory(window.location.hash),
     fraDato: null,

@@ -215,10 +215,10 @@ class EventDialog extends React.Component {
           {event.organizers.map(Organizer)}
 
           <Typography className="tkevent-margin-top" variant="h5" component="h3">Adresse</Typography>
-          <Typography>{event.venue.address}</Typography>
+          <Typography>{event.venue?.address}</Typography>
           <img className="width-100-percent" src={event.images[0].urlLarge} alt="kartvisning" />
           <Typography>
-            <a href={"https://maps.google.com/?q=" + event.venue.address} target="0">
+            <a href={"https://maps.google.com/?q=" + event.venue?.address} target="0">
               {" "}
               Vis stedet i navigerbart kart <Launch />{" "}
             </a>

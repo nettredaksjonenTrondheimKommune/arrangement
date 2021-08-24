@@ -135,7 +135,7 @@ class EventItem extends React.Component {
                 <ListItemIcon className={classes.listItemIcon}>
                   <MyLocation />
                 </ListItemIcon>{" "}
-          <ListItemText>{isOnline} {event.venue.name} {event.venueNote}</ListItemText>
+          <ListItemText>{isOnline} {event.venue?.name} {event.venueNote}</ListItemText>
               </ListItem>
               <ListItem className={classes.nullpadding}>
                 <ListItemIcon className={classes.listItemIcon}>
