@@ -6,8 +6,8 @@ export default function Venue(repetition) {
     let venue = repetition.venue;
 
     return <div>
-        <If truthy={venue.name}>
-             {venue.name}
+        <If truthy={venue?.name}>
+             {venue?.name}
         </If>
     </div>
 }

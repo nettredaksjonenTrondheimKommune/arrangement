@@ -254,7 +254,7 @@ class App extends React.Component {
         else if (event.desc_nb.toLowerCase().includes(this.state.filtrer)) {
           return true;
         }
-        else if (event.venue.name.toLowerCase().includes(this.state.filtrer)) {
+        else if (event.venue?.name.toLowerCase().includes(this.state.filtrer)) {
           return true;
         }
         return false;
@@ -347,7 +347,7 @@ App.propTypes = {
 
 function isTrondheimFolkebibliotek(arrangement) {
   return arrangement.data.events.data.filter(a => {
-    return a.venue.name.toLowerCase().includes("bibliotek") || a.organizers.some(organizer => organizer.name.toLowerCase().includes("bibliotek"));
+    return a.venue?.name.toLowerCase().includes("bibliotek") || a.organizers.some(organizer => organizer.name.toLowerCase().includes("bibliotek"));
   });
 }
 

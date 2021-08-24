@@ -144,7 +144,7 @@ class EventDialog extends React.Component {
               <ListItemIcon>
                 <MyLocation />
               </ListItemIcon>{" "}
-              <ListItemText>{isOnline} {event.venue.name} {event.venueNote}</ListItemText>
+              <ListItemText>{isOnline} {event.venue?.name || ''} {event.venueNote}</ListItemText>
             </ListItem>
             <If truthy={isOnline}>
               <ListItem>
@@ -203,7 +203,7 @@ class EventDialog extends React.Component {
                   </ListItemIcon>
                   <ListItemText>
                     {prettyDay(makeDateOfRepetition(repetition))}
-                    kl {repetition.startTime} {repetition.venue.name}
+                    kl {repetition.startTime} {repetition.venue?.name || ''}
                   </ListItemText>
                 </ListItem>
               ))}
