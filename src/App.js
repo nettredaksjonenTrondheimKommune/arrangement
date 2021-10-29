@@ -11,15 +11,16 @@ import { Typography, TextField } from '@material-ui/core';
 import Skeleton from "./Skeleton";
 import If from "./If";
 import CategorySelector from "./CategorySelector.js";
+import PlaceSelector from "./PlaceSelector.js";
 // import { eventIsCategory, eventIsNotCategory, afterDate } from "./utils";
-import { eventIsCategory, afterDate } from "./utils";
+import { eventIsCategory, eventIsSted, afterDate } from "./utils";
 import "dayjs/locale/nb";
 import DayJs from "@date-io/dayjs";
 import {
   MuiPickersUtilsProvider, DatePicker
 } from '@material-ui/pickers';
 import { debounce } from "debounce";
-import { parseCategory } from "./Categories";
+import { parseCategory, parseSted, hentSteder, steder } from "./Categories";
 
 const theme = createMuiTheme({
   typography: {
@@ -57,9 +58,9 @@ const formattedFilter = {
   // TrondheimFolkebibliotekForside
   // onlyFeatured: true,
   // Voksen
-  // notCategories: ["FAMILY", "SENIOR"]
+  notCategories: ["FAMILY", "SENIOR"]
   // DenKulturelleSpaserstokken
-  categories: ["SENIOR"]
+  // categories: ["SENIOR"]
 };
 const page = 0;
 const pageSize = 1000;
@@ -75,7 +76,7 @@ const pageSizeStr = `pageSize: ${pageSize}`;
 const paramStr = (filterStr || pageStr || pageSizeStr) ? '(' + [filterStr, pageStr, pageSizeStr].join(", ") + ')' : '';
 
 //Event fields to be fetched
-const eventFields = 
+const eventFields =
   `ageRestriction
   author_id
   categories
@@ -169,7 +170,7 @@ const eventFields =
   venueNote
   videosURL`;
 
-const query = 
+const query =
   `{
     events ${paramStr} {
       data {
@@ -185,18 +186,19 @@ const opts = {
 }
 
 class App extends React.Component {
-  state = {
-    events: [],
-    loading: true,
-    // Utvalgt: Endre max til 3, skal normalt være 20
-    max: 20,
-    category: parseCategory(window.location.hash),
-    fraDato: null,
-    filtrer: ""
-  };
-
   constructor(props) {
     super(props);
+
+    this.state = {
+      events: [],
+      loading: true,
+      // Utvalgt: Endre max til 3, skal normalt være 20
+      max: 20,
+      kategori: parseCategory(window.location.hash),
+      sted: parseSted(window.location.hash),
+      fraDato: null,
+      filtrer: ""
+    };
 
     this.getData();
   }
@@ -205,10 +207,10 @@ class App extends React.Component {
     await fetch(url, opts)
       .then(res => res.json())
       // TrondheimFolkebibliotek
-      // .then(isTrondheimFolkebibliotek)
-      // .then(res => this.setState({ events: res, loading: false }))
+      .then(isTrondheimFolkebibliotek)
+      .then(res => this.setState({ events: res, loading: false }))
       // DenKulturelleSpaserstokken
-      .then(res => this.setState({ events: res.data.events.data, loading: false }))
+      // .then(res => this.setState({ events: res.data.events.data, loading: false }))
       .catch(err => console.error(err));
   }
 
@@ -228,23 +230,49 @@ class App extends React.Component {
   }, 200)
 
   componentDidMount() {
-    window.addEventListener("hashchange", this.updateCategory);
+    // window.addEventListener("hashchange", this.updateCategory);
+    // window.addEventListener("hashchange", this.updateSted);
   }
 
   componentWillUnmount() {
-    window.removeEventListener("hashchange", this.updateCategory);
+    // window.removeEventListener("hashchange", this.updateCategory);
+    // window.removeEventListener("hashchange", this.updateSted);
   }
 
   updateCategory = () => {
-    this.setState({ category: parseCategory(window.location.hash), max: 20 });
+    this.setState({ kategori: parseCategory(window.location.hash), max: 20 });
+  }
+
+  updateSted = () => {
+    this.setState({
+      kategori: parseCategory(window.location.hash),
+      sted: parseSted(window.location.hash),
+      max: 20
+    });
+  }
+
+  handleCallbackSted = (childDataSted) => {
+    this.setState({
+      sted: childDataSted,
+      max: 20
+    });
+  }
+
+  handleCallbackCategory = (childDataCategory) => {
+    this.setState({
+      kategori: childDataCategory,
+      max: 20
+    });
   }
 
   // Utvalgt kommenter vekk over
 
   render() {
     const { classes } = this.props;
-    const { category } = this.state;
-    let events = this.state.events.filter(eventIsCategory(category))
+    const { kategori, sted } = this.state;
+    let events = this.state.events
+      .filter(eventIsSted(sted))
+      .filter(eventIsCategory(kategori))
       .filter(afterDate(this.state.fraDato))
       .filter(event => {
         if (event.title_nb.toLowerCase().includes(this.state.filtrer)) {
@@ -258,6 +286,10 @@ class App extends React.Component {
         }
         return false;
       });
+
+    if (steder.length === 0) {
+      hentSteder(this.state.events);
+    }
 
     var numberOfResults = events.length;
     events = events.slice(0, this.state.max);
@@ -273,7 +305,7 @@ class App extends React.Component {
 
             {/* Utvalgt kommenter vekk under */}
 
-            <CategorySelector />
+            <CategorySelector parentCallbackCategory={this.handleCallbackCategory} />
 
             <MuiPickersUtilsProvider utils={DayJs} locale="nb">
               <DatePicker
@@ -287,6 +319,8 @@ class App extends React.Component {
               >
               </DatePicker >
             </MuiPickersUtilsProvider>
+
+            <PlaceSelector parentCallbackPlace={this.handleCallbackSted} />
 
             <TextField
               label="Søk etter arrangement"

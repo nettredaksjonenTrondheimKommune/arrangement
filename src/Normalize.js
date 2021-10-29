@@ -1,5 +1,4 @@
 export function normalizeEvents(events) {
-    console.log(events);
     events = normalizeArray(events);
     return events.map(normalizeEvent);
 }

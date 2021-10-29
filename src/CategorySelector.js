@@ -6,7 +6,7 @@ import { withStyles } from '@material-ui/styles';
 const styles = theme => ({
     formcontrol: {
         float: 'right',
-        minWidth: 200,
+        minWidth: 200
     }
 });
 
@@ -22,6 +22,9 @@ class CategorySelector extends React.Component {
             const value = event.target.value;
             this.setState({ kategori: value });
             window.location.hash = CATEGORY_PREFIX + value;
+
+            this.props.parentCallbackCategory(value);
+            event.preventDefault();
         }
 
         const kategorier = Object.entries(categories);

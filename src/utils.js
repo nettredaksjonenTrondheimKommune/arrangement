@@ -19,6 +19,19 @@ export function eventIsNotCategory(category) {
   }
 }
 
+export function eventIsSted(sted) {
+  return function (event) {
+    if (sted === "" || sted === "alle") {
+      return true;
+    }
+    let bar = (event.venue?.name + " " + event.venueNote).replace(/\s+/g, '');
+
+    if (bar === sted) {
+      return true;
+    }
+  }
+}
+
 /**
  * prettyDay(new Date()) -> "torsdag 3. oktober "
  *
