@@ -77,10 +77,10 @@ export function hentSteder(events) {
 
   for (var i = 0; i < events.length; i++) {
     let sted = '';
-    if (events.venue?.name === '') {
+    if (events.venue?.name === '' && typeof events[i].venueNote !== 'undefined') {
       sted = events[i].venueNote;
       stederListe.push([sted.replace(/\s+/g, ''), sted]);
-    } else if (events[i].venueNote === '') {
+    } else if (events[i].venueNote === '' && typeof events[i].venue?.name !== 'undefined') {
       sted = events[i].venue?.name;
       stederListe.push([sted.replace(/\s+/g, ''), sted]);
     } else {
