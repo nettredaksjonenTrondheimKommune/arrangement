@@ -77,7 +77,11 @@ export function hentSteder(events) {
 
   for (var i = 0; i < events.length; i++) {
     let sted = '';
-    if (events.venue?.name === '' && typeof events[i].venueNote !== 'undefined') {
+
+    if (events[i].mode === 'online') {
+      sted = "Online arrangement";
+      stederListe.push([events[i].mode, sted]);
+    } else if (events[i].venue?.name === '' && typeof events[i].venueNote !== 'undefined') {
       sted = events[i].venueNote;
       stederListe.push([sted.replace(/\s+/g, ''), sted]);
     } else if (events[i].venueNote === '' && typeof events[i].venue?.name !== 'undefined') {
@@ -109,7 +113,7 @@ export function parseSted(locationHash) {
     .replace(/%C3%98/g, 'Ø')
     .replace(/%C3%85/g, 'Å');
 
-  if (typeof newLocationHash !== 'string') {
+  if (newLocationHash !== 'string') {
     return "alle";
   }
 
