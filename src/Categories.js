@@ -81,14 +81,8 @@ export function hentSteder(events) {
     if (events[i].mode === 'online') {
       sted = "Online arrangement";
       stederListe.push([events[i].mode, sted]);
-    } else if (events[i].venue?.name === '' && typeof events[i].venueNote !== 'undefined') {
-      sted = events[i].venueNote;
-      stederListe.push([sted.replace(/\s+/g, ''), sted]);
-    } else if (events[i].venueNote === '' && typeof events[i].venue?.name !== 'undefined') {
-      sted = events[i].venue?.name;
-      stederListe.push([sted.replace(/\s+/g, ''), sted]);
     } else {
-      let sted = events[i].venue?.name + ' ' + events[i].venueNote;
+      sted = events[i].venue?.name;
       stederListe.push([sted.replace(/\s+/g, ''), sted]);
     }
   }

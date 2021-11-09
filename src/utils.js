@@ -25,7 +25,7 @@ export function eventIsSted(sted) {
       return true;
     }
 
-    let stedSjekk = (event.venue?.name + " " + event.venueNote).replace(/\s+/g, '');
+    let stedSjekk = (event.venue?.name).replace(/\s+/g, '');
 
     if (stedSjekk === 'undefined') {
       stedSjekk = event.mode;
