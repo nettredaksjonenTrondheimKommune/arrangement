@@ -206,6 +206,7 @@ class App extends React.Component {
   async getData() {
     await fetch(url, opts)
       .then(res => res.json())
+      .then(filterCorruptedEvents)
       // TrondheimFolkebibliotek
       .then(isTrondheimFolkebibliotek)
       .then(res => this.setState({ events: res, loading: false }))
@@ -377,6 +378,12 @@ class App extends React.Component {
 App.propTypes = {
   classes: PropTypes.object.isRequired
 };
+
+function filterCorruptedEvents(arrangement) {
+  return arrangement.data.events.data.filter(a => {
+    return a.id && a.title_nb;
+  });
+}
 
 function isTrondheimFolkebibliotek(arrangement) {
   return arrangement.data.events.data.filter(a => {
