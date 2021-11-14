@@ -206,7 +206,7 @@ class App extends React.Component {
   async getData() {
     await fetch(url, opts)
       .then(res => res.json())
-      .then(filterCorruptedEvents)
+      .then(extractEvents)
       // TrondheimFolkebibliotek
       .then(isTrondheimFolkebibliotek)
       .then(res => this.setState({ events: res, loading: false }))
@@ -379,14 +379,14 @@ App.propTypes = {
   classes: PropTypes.object.isRequired
 };
 
-function filterCorruptedEvents(arrangement) {
+function extractEvents(arrangement) {
   return arrangement.data.events.data.filter(a => {
     return a.id && a.title_nb;
   });
 }
 
-function isTrondheimFolkebibliotek(arrangement) {
-  return arrangement.data.events.data.filter(a => {
+function isTrondheimFolkebibliotek(events) {
+  return events.filter(a => {
     return a.venue?.name.toLowerCase().includes("bibliotek") || a.organizers.some(organizer => organizer.name.toLowerCase().includes("bibliotek"));
   });
 }
