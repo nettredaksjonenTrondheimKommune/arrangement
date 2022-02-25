@@ -24,10 +24,11 @@ export function eventIsSted(sted) {
     if (sted === "" || sted === "alle") {
       return true;
     }
-
-    let stedSjekk = (event.venue?.name).replace(/\s+/g, '');
-
-    if (stedSjekk === 'undefined') {
+    
+    let stedSjekk = '';
+    if (event.venue?.name) {
+      stedSjekk = (event.venue?.name).replace(/\s+/g, '');
+    } else {
       stedSjekk = event.mode;
     }
 

@@ -58,7 +58,7 @@ const formattedFilter = {
   // TrondheimFolkebibliotekForside
   // onlyFeatured: true,
   // Voksen
-  // notCategories: ["FAMILY", "SENIOR"]
+  notCategories: ["FAMILY", "SENIOR"]
   // DenKulturelleSpaserstokken
   // categories: ["SENIOR"]
 };
