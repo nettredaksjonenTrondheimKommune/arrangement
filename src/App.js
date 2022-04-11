@@ -80,7 +80,6 @@ const eventFields =
   `ageRestriction
   author_id
   categories
-  contact_from
   desc_en
   desc_nb
   duration
